@@ -31,14 +31,19 @@ export function BusGlyph({
   const animate = moving && !reduceMotion ? { y: [0, -1.5, 0, 1.5, 0], rotate: [0, 2, 0, -2, 0] } : { y: 0, rotate: 0 };
 
   return (
-    <motion.span layoutId={layoutId} className="relative inline-flex items-center justify-center">
+    <motion.span
+      layoutId={layoutId}
+      className="relative inline-flex items-center justify-center"
+      animate={{ color }}
+      transition={{ color: { duration: 0.4, ease: 'easeInOut' } }}
+    >
       {showExhaust && moving && !reduceMotion ? (
         <span className="pointer-events-none absolute top-1/2 -translate-y-1/2" style={{ insetInlineEnd: '100%' }}>
           {[0, 1].map((index) => (
             <motion.span
               key={index}
               className="absolute block rounded-full"
-              style={{ width: 3, height: 3, background: color, insetInlineEnd: index * 5 }}
+              style={{ width: 3, height: 3, background: 'currentColor', insetInlineEnd: index * 5 }}
               animate={{ opacity: [0.55, 0], scale: [1, 0.4], x: [0, -6] }}
               transition={{ duration: 0.9, repeat: Infinity, delay: index * 0.45, ease: 'easeOut' }}
             />
@@ -50,7 +55,7 @@ export function BusGlyph({
         animate={animate}
         transition={moving && !reduceMotion ? { duration, repeat: Infinity, ease: 'easeInOut' } : { duration: 0.2 }}
       >
-        <Bus size={size} strokeWidth={1.75} color={color} aria-hidden />
+        <Bus size={size} strokeWidth={1.75} color="currentColor" aria-hidden />
       </motion.span>
     </motion.span>
   );

@@ -17,9 +17,12 @@ export function IslandMinimal({ view, reduceMotion }: { view: IslandView; reduce
       />
       <motion.span
         className="block rounded-full"
-        style={{ width: 7, height: 7, background: view.accent }}
-        animate={reduceMotion ? { opacity: 1 } : { opacity: [1, 0.35, 1] }}
-        transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+        style={{ width: 7, height: 7 }}
+        animate={{ backgroundColor: view.accent, opacity: reduceMotion ? 1 : [1, 0.35, 1] }}
+        transition={{
+          backgroundColor: { duration: 0.4, ease: 'easeInOut' },
+          opacity: { duration: 1.8, repeat: Infinity, ease: 'easeInOut' },
+        }}
       />
     </div>
   );

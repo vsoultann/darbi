@@ -84,12 +84,14 @@ export function StopRail({
           key={isRtl ? 'rtl' : 'ltr'}
           className="absolute top-1/2 z-10 flex h-5 w-5 items-center justify-center rounded-full"
           style={{
-            background: accent,
             boxShadow: `0 0 0 3px ${dark ? 'rgba(0,0,0,0.85)' : 'rgba(255,253,248,0.9)'}`,
             transform: `translate(${isRtl ? '50%' : '-50%'}, -50%)`,
           }}
-          animate={{ [isRtl ? 'right' : 'left']: `${pct}%` }}
-          transition={animate ? { type: 'spring', stiffness: 90, damping: 20, mass: 0.8 } : { duration: 0 }}
+          animate={{ [isRtl ? 'right' : 'left']: `${pct}%`, backgroundColor: accent }}
+          transition={{
+            [isRtl ? 'right' : 'left']: animate ? { type: 'spring', stiffness: 90, damping: 20, mass: 0.8 } : { duration: 0 },
+            backgroundColor: { duration: 0.4, ease: 'easeInOut' },
+          }}
         >
           <Bus size={11} strokeWidth={2} color={dark ? '#0B0B0B' : '#2B1E12'} aria-hidden />
         </motion.span>

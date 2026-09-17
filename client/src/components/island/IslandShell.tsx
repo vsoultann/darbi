@@ -16,6 +16,10 @@ export const ISLAND_SIZES: Record<IslandMode, { width: number; height: number; r
 };
 
 export const ISLAND_SPRING = { type: 'spring', stiffness: 380, damping: 32, mass: 0.9 } as const;
+/** Accent colours cross-fade rather than snap (§6.3.5). */
+export const ACCENT_TRANSITION = { duration: 0.4, ease: 'easeInOut' } as const;
+/** MINIMAL breathes 1.0 ↔ 1.04 on a 2.4s loop (§6.3.1). */
+const BREATHE_TRANSITION = { duration: 2.4, repeat: Infinity, ease: 'easeInOut' } as const;
 
 export interface IslandShellProps {
   mode: IslandMode;
@@ -64,12 +68,18 @@ export function IslandShell({
     setPressTimer(null);
   };
 
+  // Breathing lives on the outer element so the gooey body and the content scale as one.
+  const breathing = mode === 'minimal' && !reduceMotion;
+
   return (
     <motion.div
       className="relative"
       style={{ width: size.width, height: size.height }}
-      animate={{ width: size.width, height: size.height }}
-      transition={reduceMotion ? { duration: 0.15 } : ISLAND_SPRING}
+      animate={{ width: size.width, height: size.height, scale: breathing ? [1, 1.04, 1] : 1 }}
+      transition={{
+        ...(reduceMotion ? { duration: 0.15 } : ISLAND_SPRING),
+        scale: breathing ? BREATHE_TRANSITION : { duration: 0.3 },
+      }}
     >
       {/* Approaching pulse (§6.3.6) */}
       <AnimatePresence>

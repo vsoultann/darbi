@@ -39,9 +39,11 @@ export function IslandCompact({
       <div className="absolute inset-x-3.5 bottom-[5px] h-[2px] overflow-hidden rounded-full bg-white/10">
         <motion.div
           className="h-full rounded-full"
-          style={{ background: view.accent }}
-          animate={{ width: `${Math.round(view.progress * 100)}%` }}
-          transition={reduceMotion ? { duration: 0.1 } : { type: 'spring', stiffness: 110, damping: 22 }}
+          animate={{ width: `${Math.round(view.progress * 100)}%`, backgroundColor: view.accent }}
+          transition={{
+            width: reduceMotion ? { duration: 0.1 } : { type: 'spring', stiffness: 110, damping: 22 },
+            backgroundColor: { duration: 0.4, ease: 'easeInOut' },
+          }}
         />
       </div>
     </div>

@@ -40,16 +40,22 @@ export function IslandExpanded({ view, stops, currentSeq, reduceMotion, speedKmh
         </span>
         <div className="min-w-0 flex-1">
           <p className="truncate text-[12.5px] font-semibold text-white/90">{view.headline}</p>
-          <p className="text-[11px] font-medium" style={{ color: view.accent }}>
+          <motion.p
+            className="text-[11px] font-medium"
+            animate={{ color: view.accent }}
+            transition={{ duration: 0.4, ease: 'easeInOut' }}
+          >
             {view.stateLabel}
             {view.delayMinutes > 0 ? ` · ${t('track.delayedBy', { minutes: view.delayMinutes })}` : ''}
-          </p>
+          </motion.p>
         </div>
         <motion.span
           className="mt-1 block h-2 w-2 shrink-0 rounded-full"
-          style={{ background: view.accent }}
-          animate={reduceMotion ? { opacity: 1 } : { opacity: [1, 0.3, 1] }}
-          transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+          animate={{ backgroundColor: view.accent, opacity: reduceMotion ? 1 : [1, 0.3, 1] }}
+          transition={{
+            backgroundColor: { duration: 0.4, ease: 'easeInOut' },
+            opacity: { duration: 1.8, repeat: Infinity, ease: 'easeInOut' },
+          }}
         />
       </header>
 
@@ -67,7 +73,15 @@ export function IslandExpanded({ view, stops, currentSeq, reduceMotion, speedKmh
 
       <footer className="grid grid-cols-3 gap-2">
         <Metric
-          icon={<Clock size={13} strokeWidth={1.75} style={{ color: view.accent }} />}
+          icon={
+            <motion.span
+              className="flex"
+              animate={{ color: view.accent }}
+              transition={{ duration: 0.4, ease: 'easeInOut' }}
+            >
+              <Clock size={13} strokeWidth={1.75} color="currentColor" />
+            </motion.span>
+          }
           value={
             <CountdownDigits
               value={view.mmss}
@@ -79,12 +93,28 @@ export function IslandExpanded({ view, stops, currentSeq, reduceMotion, speedKmh
           label={t('island.arrivingIn')}
         />
         <Metric
-          icon={<MapPin size={13} strokeWidth={1.75} style={{ color: view.accent }} />}
+          icon={
+            <motion.span
+              className="flex"
+              animate={{ color: view.accent }}
+              transition={{ duration: 0.4, ease: 'easeInOut' }}
+            >
+              <MapPin size={13} strokeWidth={1.75} color="currentColor" />
+            </motion.span>
+          }
           value={<span className="tabnum text-[15px] font-semibold text-white">{view.distance}</span>}
           label={t('island.distance')}
         />
         <Metric
-          icon={<User size={13} strokeWidth={1.75} style={{ color: view.accent }} />}
+          icon={
+            <motion.span
+              className="flex"
+              animate={{ color: view.accent }}
+              transition={{ duration: 0.4, ease: 'easeInOut' }}
+            >
+              <User size={13} strokeWidth={1.75} color="currentColor" />
+            </motion.span>
+          }
           value={<span className="truncate text-[15px] font-semibold text-white">{view.studentName}</span>}
           label={`${t('track.id')} ${view.studentNo}`}
         />
