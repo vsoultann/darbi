@@ -1,0 +1,9 @@
+node_modules/
+dist/
+darbi.db
+darbi.db-wal
+darbi.db-shm
+.env
+.DS_Store
+*.log
+.vite/

@@ -1,0 +1,30 @@
+/* Design tokens. Dark mode is also the base for the AOD lock screen (§3). */
+:root {
+  --darbi-sand: #f7f2e9;
+  --darbi-parchment: #efe6d6;
+  --darbi-dune: #e0d2bc;
+  --darbi-bronze: #a67c3d;
+  --darbi-gold: #c9a227;
+  --darbi-espresso: #3b2a1a;
+  --darbi-cocoa: #6b5540;
+  --darbi-bus: #f5b500;
+  --darbi-live: #2e7d5b;
+  --darbi-soon: #e08a1e;
+  --darbi-late: #c0503c;
+
+  --page-bg: var(--darbi-sand);
+  --card-bg: #fffdf8;
+  --card-border: var(--darbi-dune);
+  --heading: var(--darbi-espresso);
+  --body: var(--darbi-cocoa);
+  --map-filter: sepia(0.18) saturate(0.9);
+}
+
+.dark {
+  --page-bg: #1a120b;
+  --card-bg: #241a11;
+  --card-border: #3a2b1d;
+  --heading: #f3e8d6;
+  --body: #cbb79c;
+  --map-filter: sepia(0.12) saturate(0.85) brightness(0.82);
+}

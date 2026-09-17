@@ -1,0 +1,182 @@
+@import './theme.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100dvh;
+    background: var(--page-bg);
+    color: var(--body);
+    font-family: theme('fontFamily.sans');
+    font-feature-settings: 'cv02', 'cv03', 'cv04';
+    overscroll-behavior-y: none;
+  }
+
+  html[dir='rtl'] body {
+    font-family: theme('fontFamily.arabic');
+  }
+
+  h1, h2, h3 {
+    color: var(--heading);
+    font-family: theme('fontFamily.display');
+    font-weight: 600;
+  }
+
+  html[dir='rtl'] h1,
+  html[dir='rtl'] h2,
+  html[dir='rtl'] h3 {
+    font-family: theme('fontFamily.arabic');
+    font-weight: 600;
+  }
+
+  ::selection {
+    background: rgba(201, 162, 39, 0.25);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--darbi-bronze);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+}
+
+@layer components {
+  .darbi-card {
+    @apply rounded-2xl border shadow-warm;
+    background: var(--card-bg);
+    border-color: var(--card-border);
+  }
+
+  .darbi-chip {
+    @apply inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium;
+  }
+
+  .darbi-btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-medium transition;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-darbi-bronze/60;
+  }
+
+  .darbi-btn-primary {
+    @apply darbi-btn text-white shadow-warm;
+    background: linear-gradient(135deg, #a67c3d 0%, #c9a227 100%);
+  }
+
+  .darbi-btn-primary:hover {
+    filter: brightness(1.05);
+  }
+
+  .darbi-btn-ghost {
+    @apply darbi-btn border;
+    border-color: var(--card-border);
+    color: var(--heading);
+    background: transparent;
+  }
+
+  .darbi-btn-ghost:hover {
+    background: rgba(166, 124, 61, 0.08);
+  }
+
+  .darbi-input {
+    @apply w-full rounded-xl border px-4 py-3 text-base outline-none transition;
+    background: var(--card-bg);
+    border-color: var(--card-border);
+    color: var(--heading);
+  }
+
+  .darbi-input:focus {
+    border-color: var(--darbi-bronze);
+    box-shadow: 0 0 0 4px rgba(166, 124, 61, 0.14);
+  }
+
+  .darbi-label {
+    @apply mb-1.5 block text-xs font-semibold uppercase tracking-wider;
+    color: var(--darbi-cocoa);
+  }
+}
+
+@layer utilities {
+  .tabnum {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum';
+  }
+
+  /* 4% Islamic geometric overlay, hero sections only (§3). */
+  .darbi-pattern::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'><g fill='none' stroke='%233B2A1A' stroke-width='1.4'><path d='M60 0 L120 60 L60 120 L0 60 Z'/><path d='M60 20 L100 60 L60 100 L20 60 Z'/><path d='M0 0 L120 120 M120 0 L0 120'/><circle cx='60' cy='60' r='26'/><circle cx='0' cy='0' r='18'/><circle cx='120' cy='0' r='18'/><circle cx='0' cy='120' r='18'/><circle cx='120' cy='120' r='18'/></g></svg>");
+    background-size: 120px 120px;
+  }
+
+  .darbi-goo {
+    filter: url(#darbi-goo);
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+
+  .safe-top {
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+}
+
+/* MapLibre: warm tint over the tiles (§3) and no default focus ring on the canvas. */
+.darbi-map .maplibregl-canvas-container canvas {
+  filter: var(--map-filter);
+}
+
+.darbi-map .maplibregl-ctrl-attrib {
+  font-size: 10px;
+  background: rgba(247, 242, 233, 0.72);
+  border-radius: 8px 0 0 0;
+}
+
+.dark .darbi-map .maplibregl-ctrl-attrib {
+  background: rgba(26, 18, 11, 0.7);
+  color: #cbb79c;
+}
+
+.dark .darbi-map .maplibregl-ctrl-attrib a {
+  color: #cbb79c;
+}
+
+/* The one place we accept a hard-coded pure black: the AOD. */
+.darbi-aod {
+  background: #000;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* When the user asks for reduced motion we also drop the gooey filter (§6.3.8). */
+.reduce-motion .darbi-goo {
+  filter: none;
+}
